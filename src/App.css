@@ -1,0 +1,44 @@
+.App {
+  text-align: center;
+}
+
+.card {
+  display: flex;
+  align-items: center; /* Centrera vertikalt */
+  justify-content: center; /* Centrera horisontellt */
+  width: 44%; /* Ange önskad bredd */
+
+  border: 1px solid grey; /* Lägg till en gräns med grå färg */
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Två kolumner med lika stor bredd */
+  gap: 10px; /* Utrymme mellan kolumner */
+  margin: 7px; /* Lägg till marginal runt hela form-container */
+}
+
+.va-container,
+.ho-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3px; /* Utrymme mellan elementen i kolumnerna */
+}
+
+.btn-container {
+  display: flex;
+  margin: 10px; /* Lägg till marginal runt knappen */
+  justify-content: flex-end;
+}
+
+.tittel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
+}
