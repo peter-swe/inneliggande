@@ -29,7 +29,7 @@ function App() {
   const [initialer, setInitialer] = useState("");
   const [valdAvd, setValdAvd] = useState("");
   const [valdDygn, setValdDygn] = useState("");
-  const [totaltTillagda, setTotaltTillagda] = useState(0);
+  const [historikInskrivna, setHistorikInskrivna] = useState([]); // Används för historiken
 
   //  state för redigering
   const [redigeradPatient, setRedigeradPatient] = useState(null);
@@ -54,8 +54,11 @@ function App() {
       dygn: valdDygn,
     };
     setPatienter((prevPatienter) => [...prevPatienter, nyPatient]);
-    setTotaltTillagda(totaltTillagda + 1); // Lägg till en patient till totaltTillagda
-
+    // Lägg till den nya patienten i historiken
+    setHistorikInskrivna((prevHistorik) => [
+      ...prevHistorik,
+      {id: uniqueId(), datum: inDatum, dygn: valdDygn, fvk: inKontakt},
+    ]);
     setInPlats("");
     setInDatum("");
     setInKontakt("");
@@ -79,6 +82,7 @@ function App() {
             : patient;
         });
       });
+
       setRedigeradPatient(null);
     }
   };
@@ -130,7 +134,12 @@ function App() {
         />
         <Route
           path="/sammanlagd"
-          element={<SidaSammanlagdStats totaltTillagda={totaltTillagda} />}
+          element={
+            <SidaSammanlagdStats
+              patienter={patienter}
+              historikInskrivna={historikInskrivna}
+            />
+          }
         />
       </Routes>
       <br />

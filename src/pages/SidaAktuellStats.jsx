@@ -25,24 +25,29 @@ function SidaAktuellStats({patienter, inKontakt}) {
   return (
     <>
       {patienter.length ? (
-        <table style={{width: "50%", margin: "11px"}}>
-          <tbody>
-            <tr>
-              <td>inneliggande:</td>
-              <td>{antalPatienter}</td>
-            </tr>
-            <tr>
-              <td>antal som tilldelats FVK:</td>
-              <td>{antalFVKochDagar}</td>
-            </tr>
-            <tr>
-              <td>antal med angiven vårdtid:</td>
-              <td>{antalDygn}</td>
-            </tr>
-          </tbody>
-        </table>
+        <>
+          <p>inneliggande: {antalPatienter}</p>
+          <p>antal som fått FVK: {antalFVKochDagar}</p>
+          <p>antal med beräknad vårdtid: {antalDygn}</p>
+        </>
       ) : (
-        "inga inskrivna"
+        // <table style={{width: "50%", margin: "11px"}}>
+        //   <tbody>
+        //     <tr>
+        //       <td>inneliggande:</td>
+        //       <td>{antalPatienter}</td>
+        //     </tr>
+        //     <tr>
+        //       <td>antal som tilldelats FVK:</td>
+        //       <td>{antalFVKochDagar}</td>
+        //     </tr>
+        //     <tr>
+        //       <td>antal med angiven vårdtid:</td>
+        //       <td>{antalDygn}</td>
+        //     </tr>
+        //   </tbody>
+        // </table>
+        " inga patienter inskrivna"
       )}
     </>
   );
