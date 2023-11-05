@@ -44,8 +44,9 @@ function App() {
 
   const handleSubmitNypatient = (e) => {
     e.preventDefault();
+    const id = uniqueId(); // Skapa id här
     const nyPatient = {
-      id: uniqueId(),
+      id: id,
       plats: inPlats,
       datum: inDatum,
       fvk: inKontakt,
@@ -57,7 +58,7 @@ function App() {
     // Lägg till den nya patienten i historiken
     setHistorikInskrivna((prevHistorik) => [
       ...prevHistorik,
-      {id: uniqueId(), datum: inDatum, dygn: valdDygn, fvk: inKontakt},
+      {id: id, datum: inDatum, dygn: valdDygn, fvk: inKontakt},
     ]);
     setInPlats("");
     setInDatum("");
