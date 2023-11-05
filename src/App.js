@@ -18,10 +18,17 @@ function App() {
 
     return JSON.parse(sparadePatienter);
   });
-
+  const [historikInskrivna, setHistorikInskrivna] = useState(() => {
+    const sparadHistorik = localStorage.getItem("historik");
+    if (sparadHistorik) {
+      return JSON.parse(sparadHistorik);
+    }
+    return [];
+  }); // Används för historiken
   useEffect(() => {
     localStorage.setItem("inneliggande", JSON.stringify(patienter));
-  }, [patienter]);
+    localStorage.setItem("historik", JSON.stringify(historikInskrivna));
+  }, [patienter, historikInskrivna]);
   //  state för ny patient - start in = input
   const [inPlats, setInPlats] = useState("");
   const [inDatum, setInDatum] = useState("");
@@ -29,7 +36,6 @@ function App() {
   const [initialer, setInitialer] = useState("");
   const [valdAvd, setValdAvd] = useState("");
   const [valdDygn, setValdDygn] = useState("");
-  const [historikInskrivna, setHistorikInskrivna] = useState([]); // Används för historiken
 
   //  state för redigering
   const [redigeradPatient, setRedigeradPatient] = useState(null);
@@ -74,6 +80,26 @@ function App() {
     setRedigeradPatient({...patient});
   };
 
+  const sparaHistorikRedigering = () => {
+    if (redigeradPatient) {
+      setHistorikInskrivna((prevHistorik) => {
+        return prevHistorik.map((patient) => {
+          // Använd id för att matcha patienten
+          if (patient.id === redigeradPatient.id) {
+            return {
+              ...patient,
+              datum: redigeradPatient.datum,
+              dygn: redigeradPatient.dygn,
+              fvk: redigeradPatient.fvk,
+            };
+          } else {
+            return patient;
+          }
+        });
+      });
+    }
+  };
+
   const sparaRedigering = () => {
     if (redigeradPatient) {
       setPatienter((prevPatienter) => {
@@ -83,7 +109,7 @@ function App() {
             : patient;
         });
       });
-
+      sparaHistorikRedigering();
       setRedigeradPatient(null);
     }
   };
