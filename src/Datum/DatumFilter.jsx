@@ -1,14 +1,16 @@
 import "../Formular/Form.css";
-import React, {useState} from "react";
+// import React, {useState} from "react";
 
 const DatumFilter = ({
   historikInskrivna,
-  // filteredData,
+  setPeriodStart,
+  periodStart,
+  periodSlut,
   onFilter,
-  // setFilteredData,
+  setPeriodSlut,
 }) => {
-  const [periodStart, setPeriodStart] = useState("");
-  const [periodSlut, setPeriodSlut] = useState("");
+  // const [periodStart, setPeriodStart] = useState("");
+  // const [periodSlut, setPeriodSlut] = useState("");
 
   // const [startDate, setStartDate] = useState(new Date());
   // const [endDate, setEndDate] = useState(new Date());
