@@ -45,7 +45,7 @@ function SidaInneliggandePatienter({
           setValdDygn={setValdDygn}
         />
       )}
-      {patienter.length === 0 ? (
+      {patienter && patienter.length === 0 ? (
         <IngaInneliggande />
       ) : (
         <PatienterTabell

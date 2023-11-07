@@ -1,32 +1,49 @@
-import React, {useState} from "react";
+// import React, {useState} from "react";
 
 import DatumFilter from "../Datum/DatumFilter";
 
-function SidaSammanlagdStats({patienter, historikInskrivna}) {
-  const [filteredPatienter, setFilteredPatienter] = useState(patienter);
-
-  const filterPatientsByDate = (startDate, endDate) => {
-    const filtered = historikInskrivna.filter((patient) => {
-      const patientDatum = new Date(patient.datum);
-      return (
-        patientDatum >= new Date(startDate) && patientDatum <= new Date(endDate)
-      );
-    });
-    setFilteredPatienter(filtered);
+function SidaSammanlagdStats({
+  historikInskrivna,
+  antaletDagarMellanDagar,
+  filteredData,
+  setFilteredData,
+}) {
+  const handleFilter = (nyaFiltreradeData) => {
+    setFilteredData(nyaFiltreradeData);
   };
 
-  const totalInskrivna = historikInskrivna.length;
-
+  // Använd filteredData för att utföra beräkningar eller visa information baserat på det.
+  const antalPatienter = filteredData.length;
   // Räkna antalet patienter med angivet 'dygn'
-  const antalDygn = historikInskrivna.filter(
+  const antalDygn = filteredData.filter(
     (patient) => patient.dygn !== ""
   ).length;
 
+  // Räkna antalet patienter med FVK
+  const antalFVKochDagar = filteredData.filter((patient) => {
+    return (
+      patient.fvk !== "" &&
+      antaletDagarMellanDagar(patient.datum, new Date()) > 5
+    );
+  }).length;
+
+  // const totalInskrivna = historikInskrivna.filter((patient) => {
+  //   const patientDatum = new Date(patient.datum);
+  //   return (
+  //     patientDatum >= new Date(periodStart) &&
+  //     patientDatum <= new Date(periodSlut)
+  //   );
+  // }).length;
+
   return (
     <>
-      <p>totalt inlagda: {totalInskrivna}</p>
+      <p>totalt inlagda: {antalPatienter}</p>
       <p>angivet vårdtid: {antalDygn}</p>
-      <DatumFilter onFilter={filterPatientsByDate} />
+      <p>Tilldelats FVK: {antalFVKochDagar}</p>
+      <DatumFilter
+        historikInskrivna={historikInskrivna}
+        onFilter={handleFilter}
+      />
     </>
   );
 }

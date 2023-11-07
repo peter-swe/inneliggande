@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 
 // import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -10,6 +10,7 @@ import {Route, Routes} from "react-router-dom";
 import SidaAktuellStats from "./pages/SidaAktuellStats";
 import SidaSammanlagdStats from "./pages/SidaSammanlagdStats";
 import SidaInneliggandePatienter from "./pages/SidaInneliggandePatienter";
+import DatumFilter from "./Datum/DatumFilter";
 
 function App() {
   const [patienter, setPatienter] = useState(() => {
@@ -29,6 +30,7 @@ function App() {
     localStorage.setItem("inneliggande", JSON.stringify(patienter));
     localStorage.setItem("historik", JSON.stringify(historikInskrivna));
   }, [patienter, historikInskrivna]);
+
   //  state för ny patient - start in = input
   const [inPlats, setInPlats] = useState("");
   const [inDatum, setInDatum] = useState("");
@@ -36,6 +38,7 @@ function App() {
   const [initialer, setInitialer] = useState("");
   const [valdAvd, setValdAvd] = useState("");
   const [valdDygn, setValdDygn] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
   //  state för redigering
   const [redigeradPatient, setRedigeradPatient] = useState(null);
@@ -47,6 +50,13 @@ function App() {
   const uniqueId = () => {
     return new Date().getTime();
   };
+
+  function antaletDagarMellanDagar(startDatum, slutDatum) {
+    const start = new Date(startDatum);
+    const slut = new Date(slutDatum);
+    const tidsSkillnad = slut - start;
+    return Math.floor(tidsSkillnad / (1000 * 60 * 60 * 24));
+  }
 
   const handleSubmitNypatient = (e) => {
     e.preventDefault();
@@ -156,7 +166,11 @@ function App() {
         <Route
           path="/statistik"
           element={
-            <SidaAktuellStats patienter={patienter} inKontakt={inKontakt} />
+            <SidaAktuellStats
+              patienter={patienter}
+              antaletDagarMellanDagar={antaletDagarMellanDagar}
+              inKontakt={inKontakt}
+            />
           }
         />
         <Route
@@ -165,6 +179,17 @@ function App() {
             <SidaSammanlagdStats
               patienter={patienter}
               historikInskrivna={historikInskrivna}
+              antaletDagarMellanDagar={antaletDagarMellanDagar}
+              filteredData={filteredData}
+              setFilteredData={setFilteredData}
+            />
+          }
+        />
+        <Route
+          element={
+            <DatumFilter
+              filteredData={filteredData}
+              setFilteredData={setFilteredData}
             />
           }
         />

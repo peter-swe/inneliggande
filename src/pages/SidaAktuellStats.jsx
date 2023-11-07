@@ -1,12 +1,12 @@
 import React from "react";
 
-function SidaAktuellStats({patienter, inKontakt}) {
-  function antaletDagarMellanDagar(startDatum, slutDatum) {
-    const start = new Date(startDatum);
-    const slut = new Date(slutDatum);
-    const tidsSkillnad = slut - start;
-    return Math.floor(tidsSkillnad / (1000 * 60 * 60 * 24));
-  }
+function SidaAktuellStats({patienter, antaletDagarMellanDagar}) {
+  // function antaletDagarMellanDagar(startDatum, slutDatum) {
+  //   const start = new Date(startDatum);
+  //   const slut = new Date(slutDatum);
+  //   const tidsSkillnad = slut - start;
+  //   return Math.floor(tidsSkillnad / (1000 * 60 * 60 * 24));
+  // }
 
   // Räkna antalet patienter
   const antalPatienter = patienter.length;
