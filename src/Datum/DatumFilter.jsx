@@ -1,5 +1,5 @@
 import "../Formular/Form.css";
-// import React, {useState} from "react";
+import Button from "../UI/Button";
 
 const DatumFilter = ({
   historikInskrivna,
@@ -9,12 +9,6 @@ const DatumFilter = ({
   onFilter,
   setPeriodSlut,
 }) => {
-  // const [periodStart, setPeriodStart] = useState("");
-  // const [periodSlut, setPeriodSlut] = useState("");
-
-  // const [startDate, setStartDate] = useState(new Date());
-  // const [endDate, setEndDate] = useState(new Date());
-
   const handleFilter = (e) => {
     e.preventDefault();
     // Konvertera start- och slutdatum till JavaScript Date-objekt
@@ -63,7 +57,7 @@ const DatumFilter = ({
             onChange={(e) => setPeriodSlut(e.target.value)}
           />
         </div>
-        <button onClick={handleFilter}>Filtrera datum</button>
+        <Button onClick={handleFilter}>Filtrera datum</Button>
       </div>
     </form>
   );

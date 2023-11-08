@@ -28,6 +28,8 @@ function SidaSammanlagdStats({
     (patient) => patient.dygn !== ""
   ).length;
 
+  const procentDygn = Math.round((antalDygn * 100) / antalPatienter);
+
   // Räkna antalet patienter med FVK
   const antalFVKochDagar = filteredData.filter((patient) => {
     return (
@@ -36,14 +38,13 @@ function SidaSammanlagdStats({
     );
   }).length;
 
-  // const totalInskrivna = historikInskrivna.filter((patient) => {
-  //   const patientDatum = new Date(patient.datum);
-  //   return (
-  //     patientDatum >= new Date(periodStart) &&
-  //     patientDatum <= new Date(periodSlut)
-  //   );
-  // }).length;
+  // Beräkna antalet patienter som uppfyller villkoret för antalet dagar
+  const eligibleFVK = filteredData.filter((patient) => {
+    return antaletDagarMellanDagar(patient.datum, new Date()) > 5;
+  }).length;
 
+  // Beräkna procentandelen och runda av till närmaste heltal
+  const procentFVK = Math.round((antalFVKochDagar * 100) / eligibleFVK);
   return (
     <>
       {showFiltreradStatistik ? ( // Visa FiltreradStatistik om showFiltreradStatistik är true
@@ -54,6 +55,8 @@ function SidaSammanlagdStats({
           newFilterHandler={newFilterHandler}
           periodStart={periodStart} // Skicka periodStart som prop till FiltreradStatistik
           periodSlut={periodSlut} // Skicka periodSlut som prop till FiltreradStatistik
+          procentFVK={procentFVK}
+          procentDygn={procentDygn}
         />
       ) : (
         // Visa DatumFilter om showFiltreradStatistik är false

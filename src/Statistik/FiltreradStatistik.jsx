@@ -1,5 +1,6 @@
 // FiltreradStatistik.jsx
 import React from "react";
+import Button from "../UI/Button";
 
 const FiltreradStatistik = ({
   antalPatienter,
@@ -8,6 +9,8 @@ const FiltreradStatistik = ({
   newFilterHandler,
   periodStart,
   periodSlut,
+  procentFVK,
+  procentDygn,
 }) => {
   return (
     <>
@@ -15,9 +18,13 @@ const FiltreradStatistik = ({
         Statistik för {periodStart} - {periodSlut}
       </h2>
       <p>totalt inlagda: {antalPatienter}</p>
-      <p>angivet vårdtid: {antalDygn}</p>
-      <p>Tilldelats FVK: {antalFVKochDagar}</p>
-      <button onClick={newFilterHandler}>Nytt filter</button>
+      <p>
+        angivet vårdtid: {antalDygn} = {procentDygn} %
+      </p>
+      <p>
+        Tilldelats FVK: {antalFVKochDagar} = {procentFVK} %
+      </p>
+      <Button onClick={newFilterHandler}>Nytt filter</Button>
     </>
   );
 };

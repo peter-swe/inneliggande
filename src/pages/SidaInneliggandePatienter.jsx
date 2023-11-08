@@ -2,6 +2,7 @@ import React from "react";
 import NyPatientForm from "../Formular/NyPatientForm";
 import IngaInneliggande from "../IngaInneliggande";
 import PatienterTabell from "../Tabell/PatienterTabell";
+import Button from "../UI/Button";
 
 function SidaInneliggandePatienter({
   visaForm,
@@ -59,7 +60,7 @@ function SidaInneliggandePatienter({
         />
       )}
       <div>
-        <button onClick={() => setVisaForm(true)}>Ny patient</button>
+        <Button onClick={() => setVisaForm(true)}>Ny patient</Button>
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import SelectBakavd from "./SelectBakavd";
 import SelectVardTid from "./SelectVardTid";
+import Button from "../UI/Button";
 
 function NyPatientForm({
   handleSubmitNypatient,
@@ -54,7 +55,7 @@ function NyPatientForm({
           </div>
         </div>
         <div className="btn-container">
-          <button type="submit">Spara</button>
+          <Button type="submit">Spara</Button>
         </div>
       </form>
     </div>
